@@ -18,7 +18,7 @@ for file in glob.glob("*.lua"):
     with open(file, "r") as fh:
         file_content = fh.read()
         # Finding version in lua file
-        match_string = re.search('function(\s)(.*[a-zA-Z]).version\(\)(\s+)return(\s)"([A-Za-z0-9_\./\\-]*)"(\s+)end', file_content).group()
+        match_string = re.search('function(\s)([a-zA-Z0-9_\./\\-]*).version\(\)(\s+)return(\s)"([A-Za-z0-9_\./\\-]*)"(\s+)end', file_content).group()
         version = re.search('"([A-Za-z0-9_\./\\-]*)"', match_string).group()
         version = version.strip('"')
     fd = [file, os.path.getsize(file), version]
@@ -35,4 +35,14 @@ for file in glob.glob("*.lua"):
 with open("LuaFileVersions.json", "w", encoding='utf-8') as fh:
     json.dump({"available_files": files_details}, fh, ensure_ascii=False, indent=4)
 
+# function scheduler_02.version()
+# 	return "2.0"
+# end
 
+# function powerfail.version()
+# 	return "1.0.2"
+# end
+
+# function api32.version()
+# 	return "2.0"
+# end
